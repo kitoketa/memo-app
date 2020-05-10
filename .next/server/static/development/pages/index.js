@@ -266,7 +266,6 @@ class Login extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
 
 
   logined() {
-    alert("ログインしました");
     next_router__WEBPACK_IMPORTED_MODULE_2___default.a.push('/memo_list');
   }
 
@@ -279,7 +278,7 @@ class Login extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 29,
+        lineNumber: 28,
         columnNumber: 11
       }
     }, __jsx(_Account__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -288,7 +287,7 @@ class Login extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 30,
+        lineNumber: 29,
         columnNumber: 13
       }
     }));

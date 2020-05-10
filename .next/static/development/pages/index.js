@@ -213,7 +213,6 @@ var Login = /*#__PURE__*/function (_Component) {
   Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(Login, [{
     key: "logined",
     value: function logined() {
-      alert("ログインしました");
       next_router__WEBPACK_IMPORTED_MODULE_9___default.a.push('/memo_list');
     }
   }, {
@@ -228,7 +227,7 @@ var Login = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 29,
+          lineNumber: 28,
           columnNumber: 11
         }
       }, __jsx(_Account__WEBPACK_IMPORTED_MODULE_10__["default"], {
@@ -237,7 +236,7 @@ var Login = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 30,
+          lineNumber: 29,
           columnNumber: 13
         }
       }));

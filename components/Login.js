@@ -17,7 +17,6 @@ class Login extends Component {
 
     // login,logout処理
     logined(){
-        alert("ログインしました")
         Router.push('/memo_list')
      }
     logouted(){

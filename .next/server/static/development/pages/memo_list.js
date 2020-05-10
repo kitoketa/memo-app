@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -220,11 +220,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! firebase */ "firebase");
 /* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Account */ "./components/Account.js");
+/* harmony import */ var _static_address_lib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../static/address_lib */ "./static/address_lib.js");
+/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Account */ "./components/Account.js");
 var _jsxFileName = "C:\\Users\\roone\\git\\memo-app\\components\\MemoList.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -246,53 +248,155 @@ class MemoList extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
   }
 
   logined() {
-    console.log('logined.');
+    this.getMemoList();
   }
 
   logouted() {
     next_router__WEBPACK_IMPORTED_MODULE_2___default.a.push('/');
   }
 
+  getMemoList() {
+    if (this.props.email == undefined || this.props.email == '') {
+      return;
+    }
+
+    let email = _static_address_lib__WEBPACK_IMPORTED_MODULE_4__["default"].encodeEmail(this.props.email);
+    let db = firebase__WEBPACK_IMPORTED_MODULE_3___default.a.database();
+    let ref = db.ref('memo/');
+    let self = this;
+    ref.orderByKey().equalTo(email).on('value', snapshot => {
+      let d = _static_address_lib__WEBPACK_IMPORTED_MODULE_4__["default"].deepcopy(snapshot.val());
+      this.props.dispatch({
+        type: 'UPDATE_USER',
+        value: {
+          login: this.props.login,
+          username: this.props.username,
+          email: this.props.email,
+          data: d,
+          items: self.getItem(d)
+        }
+      });
+    });
+  }
+
+  getItem(data) {
+    if (data == undefined) {
+      return;
+    }
+
+    let res = [];
+    console.log(data);
+
+    for (let i in data) {
+      console.log(i);
+
+      for (let j in data[i]) {
+        console.log(data[i][j]);
+        let id = data[i][j].id;
+        let title = data[i][j].title;
+        let body = data[i][j].body;
+        res.push( // <li key={title} data-tag={body}>
+        //     タイトル:{title}
+        //     詳細:{body}
+        // </li>)
+        // <td>{title}<br>{body}</br></td>
+        __jsx("table", {
+          border: "1",
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 68,
+            columnNumber: 17
+          }
+        }, __jsx("tbody", {
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 69,
+            columnNumber: 17
+          }
+        }, __jsx("tr", {
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 70,
+            columnNumber: 21
+          }
+        }, __jsx("td", {
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 71,
+            columnNumber: 25
+          }
+        }, title))), __jsx("tbody", {
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 74,
+            columnNumber: 17
+          }
+        }, __jsx("tr", {
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 75,
+            columnNumber: 21
+          }
+        }, __jsx("td", {
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 76,
+            columnNumber: 25
+          }
+        }, body)))));
+      }
+
+      break;
+    }
+
+    console.log(res);
+    return res;
+  }
+
   render() {
+    const title = 'タイトル';
+    const body = '詳細';
+    const title2 = 'タイトル2';
+    const body2 = '詳細2';
     return __jsx("div", {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 28,
+        lineNumber: 94,
         columnNumber: 13
       }
     }, __jsx("h1", {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 29,
+        lineNumber: 95,
         columnNumber: 17
       }
-    }, "\u30E1\u30E2\u4E00\u89A7"), __jsx(_Account__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    }, "\u30E1\u30E2\u4E00\u89A7"), __jsx(_Account__WEBPACK_IMPORTED_MODULE_5__["default"], {
       self: this,
       onLogined: this.logined,
       onLogouted: this.logouted,
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 30,
+        lineNumber: 96,
         columnNumber: 17
       }
     }), __jsx("hr", {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 32,
+        lineNumber: 98,
         columnNumber: 13
       }
-    }), __jsx("a", {
-      __self: this,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 33,
-        columnNumber: 13
-      }
-    }, "\u3053\u3053\u306B\u30E1\u30E2\u30EA\u30B9\u30C8"));
+    }), this.props.items);
   }
 
 }
@@ -329,7 +433,35 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 /***/ }),
 
-/***/ 3:
+/***/ "./static/address_lib.js":
+/*!*******************************!*\
+  !*** ./static/address_lib.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+class Lib {
+  static deepcopy(val) {
+    return JSON.parse(JSON.stringify(val));
+  }
+
+  static encodeEmail(val) {
+    return val.split(".").join("*");
+  }
+
+  static decodeEmail(val) {
+    return val.split("*").join(".");
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Lib);
+
+/***/ }),
+
+/***/ 5:
 /*!**********************************!*\
   !*** multi ./pages/memo_list.js ***!
   \**********************************/

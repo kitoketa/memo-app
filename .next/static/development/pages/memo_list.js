@@ -169,7 +169,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! firebase */ "./node_modules/firebase/dist/index.cjs.js");
 /* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Account */ "./components/Account.js");
+/* harmony import */ var _static_address_lib__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../static/address_lib */ "./static/address_lib.js");
+/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Account */ "./components/Account.js");
 
 
 
@@ -183,6 +184,7 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement;
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Object(_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Object(_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__["default"])(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
 
 
 
@@ -215,7 +217,7 @@ var MemoList = /*#__PURE__*/function (_Component) {
   Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(MemoList, [{
     key: "logined",
     value: function logined() {
-      console.log('logined.');
+      this.getMemoList();
     }
   }, {
     key: "logouted",
@@ -223,47 +225,154 @@ var MemoList = /*#__PURE__*/function (_Component) {
       next_router__WEBPACK_IMPORTED_MODULE_9___default.a.push('/');
     }
   }, {
+    key: "getMemoList",
+    value: function getMemoList() {
+      var _this2 = this;
+
+      if (this.props.email == undefined || this.props.email == '') {
+        return;
+      }
+
+      var email = _static_address_lib__WEBPACK_IMPORTED_MODULE_11__["default"].encodeEmail(this.props.email);
+      var db = firebase__WEBPACK_IMPORTED_MODULE_10___default.a.database();
+      var ref = db.ref('memo/');
+      var self = this;
+      ref.orderByKey().equalTo(email).on('value', function (snapshot) {
+        var d = _static_address_lib__WEBPACK_IMPORTED_MODULE_11__["default"].deepcopy(snapshot.val());
+
+        _this2.props.dispatch({
+          type: 'UPDATE_USER',
+          value: {
+            login: _this2.props.login,
+            username: _this2.props.username,
+            email: _this2.props.email,
+            data: d,
+            items: self.getItem(d)
+          }
+        });
+      });
+    }
+  }, {
+    key: "getItem",
+    value: function getItem(data) {
+      if (data == undefined) {
+        return;
+      }
+
+      var res = [];
+      console.log(data);
+
+      for (var i in data) {
+        console.log(i);
+
+        for (var j in data[i]) {
+          console.log(data[i][j]);
+          var id = data[i][j].id;
+          var title = data[i][j].title;
+          var body = data[i][j].body;
+          res.push( // <li key={title} data-tag={body}>
+          //     タイトル:{title}
+          //     詳細:{body}
+          // </li>)
+          // <td>{title}<br>{body}</br></td>
+          __jsx("table", {
+            border: "1",
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 68,
+              columnNumber: 17
+            }
+          }, __jsx("tbody", {
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 69,
+              columnNumber: 17
+            }
+          }, __jsx("tr", {
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 70,
+              columnNumber: 21
+            }
+          }, __jsx("td", {
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 71,
+              columnNumber: 25
+            }
+          }, title))), __jsx("tbody", {
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 74,
+              columnNumber: 17
+            }
+          }, __jsx("tr", {
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 75,
+              columnNumber: 21
+            }
+          }, __jsx("td", {
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 76,
+              columnNumber: 25
+            }
+          }, body)))));
+        }
+
+        break;
+      }
+
+      console.log(res);
+      return res;
+    }
+  }, {
     key: "render",
     value: function render() {
+      var title = 'タイトル';
+      var body = '詳細';
+      var title2 = 'タイトル2';
+      var body2 = '詳細2';
       return __jsx("div", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 28,
+          lineNumber: 94,
           columnNumber: 13
         }
       }, __jsx("h1", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 29,
+          lineNumber: 95,
           columnNumber: 17
         }
-      }, "\u30E1\u30E2\u4E00\u89A7"), __jsx(_Account__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      }, "\u30E1\u30E2\u4E00\u89A7"), __jsx(_Account__WEBPACK_IMPORTED_MODULE_12__["default"], {
         self: this,
         onLogined: this.logined,
         onLogouted: this.logouted,
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 30,
+          lineNumber: 96,
           columnNumber: 17
         }
       }), __jsx("hr", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 32,
+          lineNumber: 98,
           columnNumber: 13
         }
-      }), __jsx("a", {
-        __self: this,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 33,
-          columnNumber: 13
-        }
-      }, "\u3053\u3053\u306B\u30E1\u30E2\u30EA\u30B9\u30C8"));
+      }), this.props.items);
     }
   }]);
 
@@ -55201,7 +55310,50 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 /***/ }),
 
-/***/ 1:
+/***/ "./static/address_lib.js":
+/*!*******************************!*\
+  !*** ./static/address_lib.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/classCallCheck */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/createClass */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
+
+
+
+var Lib = /*#__PURE__*/function () {
+  function Lib() {
+    Object(_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, Lib);
+  }
+
+  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(Lib, null, [{
+    key: "deepcopy",
+    value: function deepcopy(val) {
+      return JSON.parse(JSON.stringify(val));
+    }
+  }, {
+    key: "encodeEmail",
+    value: function encodeEmail(val) {
+      return val.split(".").join("*");
+    }
+  }, {
+    key: "decodeEmail",
+    value: function decodeEmail(val) {
+      return val.split("*").join(".");
+    }
+  }]);
+
+  return Lib;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Lib);
+
+/***/ }),
+
+/***/ 3:
 /*!************************************************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2Fmemo_list&absolutePagePath=C%3A%5CUsers%5Croone%5Cgit%5Cmemo-app%5Cpages%5Cmemo_list.js&hotRouterUpdates=true ***!
   \************************************************************************************************************************************************************/
@@ -55224,5 +55376,5 @@ module.exports = dll_2adc2403d89adc16ead0;
 
 /***/ })
 
-},[[1,"static/runtime/webpack.js"]]]);
+},[[3,"static/runtime/webpack.js"]]]);
 //# sourceMappingURL=memo_list.js.map
