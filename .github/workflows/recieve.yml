@@ -8,7 +8,7 @@ jobs:
   receive-repository-dispatch:
     runs-on: ubuntu-latest
     steps:
-      - name: Receive
+      - name: checkout
         uses: actions/checkout@master
         with:
           ref: ${{ github.event.client_payload.ref }}
