@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Receive
-        run: |
-          env=${{ github.event.client_payload.env }}
-          echo "ENV = $env"
-
+        uses: actions/checkout@master
+        with:
+          ref: ${{ github.event.client_payload.ref }}
