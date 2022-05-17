@@ -11,5 +11,5 @@ jobs:
       - name: Receive
         run: |
           env=${{ github.event.client_payload.env }}
-          echo $env
+          echo "ENV = $env"
 
