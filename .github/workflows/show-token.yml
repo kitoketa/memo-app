@@ -1,4 +1,4 @@
-name: CI
+name: environment input test
 
 on:
   workflow_dispatch:
