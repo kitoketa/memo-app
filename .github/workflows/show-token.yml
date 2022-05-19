@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+          type: environment
+
+jobs:
+  show-input:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: show token
+        run: |
+          echo ${{ secrets.TOKEN }}
