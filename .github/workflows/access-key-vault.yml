@@ -23,6 +23,6 @@ jobs:
               IP=$(curl -s https://checkip.amazonaws.com/)
 
               az keyvault network-rule add \
-                --resource-group "${{ github.envent.inputs.resource_group }}"
-                --name "${{ github.envent.inputs.keyvault_name }}"
+                --resource-group "${{ github.envent.inputs.resource_group }}" \
+                --name "${{ github.envent.inputs.keyvault_name }}" \
                 --ip-address "$IP/32"
