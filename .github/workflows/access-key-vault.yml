@@ -15,17 +15,17 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-#       - name: Add IP Address For Key Vault
-#         uses: azure/CLI@v1
-#         with:
-#           azcliversion: 2.36.0
-#           inlineScript: |
-#             IP=$(curl -s https://checkip.amazonaws.com/)
+      - name: Add IP Address For Key Vault
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.36.0
+          inlineScript: |
+            IP=$(curl -s https://checkip.amazonaws.com/)
 
-#             az keyvault network-rule add \
-#               --resource-group "${{ github.event.inputs.resource_group }}" \
-#               --name "${{ github.event.inputs.keyvault }}" \
-#               --ip-address "${IP}/32"
+            az keyvault network-rule add \
+              --resource-group "${{ github.event.inputs.resource_group }}" \
+              --name "${{ github.event.inputs.keyvault }}" \
+              --ip-address "${IP}/32"
 
       - name: Show Key Vault Secret
         uses: azure/CLI@v1
@@ -35,14 +35,14 @@ jobs:
             az keyvault secret list \
               --vault-name "${{ github.event.inputs.keyvault }}" \
 
-#       - name: Remove IP Adress For Key Vault
-#         uses: azure/CLI@v1
-#         with:
-#           azcliversion: 2.36.0
-#           inlineScript: |
-#             IP=$(curl -s https://checkip.amazonaws.com/)
+      - name: Remove IP Adress For Key Vault
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.36.0
+          inlineScript: |
+            IP=$(curl -s https://checkip.amazonaws.com/)
 
-#             az keyvault network-rule remove \
-#               --resource-group "${{ github.event.inputs.resource_group }}" \
-#               --name "${{ github.event.inputs.keyvault }}" \
-#               --ip-address "${IP}/32"
+            az keyvault network-rule remove \
+              --resource-group "${{ github.event.inputs.resource_group }}" \
+              --name "${{ github.event.inputs.keyvault }}" \
+              --ip-address "${IP}/32"
