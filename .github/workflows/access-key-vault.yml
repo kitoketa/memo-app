@@ -2,6 +2,9 @@ name: AccessAzureKeyVault
 
 on:
   workflow_dispatch:
+    inputs:
+      resource_group:
+      keyvault_name:
 
 jobs:
   access-azure-key-vault:
@@ -17,4 +20,9 @@ jobs:
         with:
           azcliversion: 2.0.72
           inlineScript: |
-              az account show
+              IP=$(curl -s https://checkip.amazonaws.com/)
+
+              az keyvault network-rule add \
+                --resource-group ${{ github.envent.inputs.resource_group }}
+                --name ${{ github.envent.inputs.keyvault_name }}
+                --ip-address "$IP/32"
