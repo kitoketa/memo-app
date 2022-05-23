@@ -3,8 +3,9 @@ name: AccessAzureKeyVault
 on:
   workflow_dispatch:
     inputs:
+      subscription:
       resource_group:
-      keyvault_name:
+      keyvault:
 
 jobs:
   access-azure-key-vault:
@@ -23,6 +24,7 @@ jobs:
               IP=$(curl -s https://checkip.amazonaws.com/)
 
               az keyvault network-rule add \
+                --subscription "${{ github.event.inputs.subscription }}" \
                 --resource-group "${{ github.event.inputs.resource_group }}" \
-                --name "${{ github.event.inputs.keyvault_name }}" \
+                --name "${{ github.event.inputs.keyvault }}" \
                 --ip-address "${IP}/32"
