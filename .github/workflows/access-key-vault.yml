@@ -25,4 +25,4 @@ jobs:
               az keyvault network-rule add \
                 --resource-group "${{ github.event.inputs.resource_group }}" \
                 --name "${{ github.event.inputs.keyvault_name }}" \
-                --ip-address "$IP/32"
+                --ip-address "${IP}/32"
