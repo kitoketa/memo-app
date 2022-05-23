@@ -27,6 +27,14 @@ jobs:
               --name "${{ github.event.inputs.keyvault }}" \
               --ip-address "${IP}/32"
 
+      - name: Show Key Vault Secret
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.36.0
+          inlineScript: |
+            az keyvault secret list \
+              --vault-name "${{ github.event.inputs.keyvault }}" \
+
       - name: Remove IP Adress For Key Vault
         uses: azure/CLI@v1
         with:
