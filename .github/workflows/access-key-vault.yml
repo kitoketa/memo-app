@@ -21,8 +21,10 @@ jobs:
           azcliversion: 2.0.72
           inlineScript: |
               IP=$(curl -s https://checkip.amazonaws.com/)
+              resource_group="${{ github.envent.inputs.resource_group }}"
+              keyvault_name="${{ github.envent.inputs.keyvault_name }}"
 
               az keyvault network-rule add \
-                --resource-group "${{ github.envent.inputs.resource_group }}" \
-                --name "${{ github.envent.inputs.keyvault_name }}" \
+                --resource-group $resource_group \
+                --name $keyvault_name \
                 --ip-address "$IP/32"
