@@ -1,0 +1,30 @@
+name: Step Run Flag
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_step1:
+        required: true 
+        type: boolean
+      run_step2:
+        required: true 
+        type: boolean
+      run_step3:
+        required: true 
+        type: boolean
+
+jobs:
+  step-run-flag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: step1
+        if:  ${{ github.event.inputs.run_step1 == 'true' }} 
+        run: echo "run step1"
+
+      - name: step2
+        if:  ${{ github.event.inputs.run_step2 == 'true' }} 
+        run: echo "run step2"
+
+      - name: step3
+        if:  ${{ github.event.inputs.run_step3 == 'true' }} 
+        run: echo "run step3"
