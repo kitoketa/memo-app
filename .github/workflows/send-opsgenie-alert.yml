@@ -1,0 +1,31 @@
+name: send opsgenie alert
+
+on:
+  workflow_dispatch:
+
+jobs:
+  send-opsgenie-alert:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Raise an error 
+        run: |
+          exit 1
+      
+      - if: failure()
+        name: Create alert to Opsgenie on failure
+        uses: joelwmale/webhook-action@master
+        with:
+          url: 'https://api.opsgenie.com/v2/alerts'
+          headers: |
+            {
+              "Authorization": "GenieKey ${{ secrets.OPSGENIE_API_KEY }}"
+            }
+          body: |
+            {
+              "message": "[WARN]Workflow failed",
+              "description": "Link to GitHub Actions:\nhttps://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+              "tags": [ "WARN" ],
+              "priority": "P3",
+              "details": { "status": "${{ job.status }}" }
+            }
