@@ -10,6 +10,6 @@ jobs:
   run-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Run Test1
+      - name: Run Test
         run: |
           echo "Run Test
