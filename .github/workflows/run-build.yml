@@ -1,0 +1,12 @@
+name: Run Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Build
+        run: |
+          echo "Run Build"
