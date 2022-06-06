@@ -9,7 +9,15 @@ on:
 jobs:
   run-test:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Run Test
         run: |
           echo "Run Test"
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - name: failure
+        run: |
+          echo "trigger build workflow failed"
