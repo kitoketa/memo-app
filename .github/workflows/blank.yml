@@ -1,0 +1,15 @@
+name: Run Tests
+
+on:
+  workflow_run:
+    workflows: [Run Build]
+    types:
+      - completed
+
+jobs:
+  run-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Test1
+        run: |
+          echo "Run Test
