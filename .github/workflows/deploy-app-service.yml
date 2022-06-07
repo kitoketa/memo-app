@@ -12,15 +12,15 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Clone Sample App
-        run: |
-          git clone https://github.com/Azure-Samples/msdocs-python-django-webapp-quickstart
-
       - name: Deploy App
         uses: azure/CLI@v1
         with:
           azcliversion: 2.36.0
           inlineScript: |
+            git clone https://github.com/Azure-Samples/msdocs-python-django-webapp-quickstart
+
+            cd msdocs-python-django-webapp-quickstart
+            
             az webapp up \
               --name 'tutorial-python-app' \
               --runtime 'PYTHON:3.9' \
