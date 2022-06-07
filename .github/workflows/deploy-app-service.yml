@@ -24,5 +24,4 @@ jobs:
             az webapp up \
               --name 'tutorial-python-app' \
               --runtime 'PYTHON:3.9' \
-              --sku B1 \
-              --logs
+              --sku B1
