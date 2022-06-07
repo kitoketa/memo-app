@@ -15,7 +15,6 @@ jobs:
       - name: Clone Sample App
         run: |
           git clone https://github.com/Azure-Samples/msdocs-python-django-webapp-quickstart
-          cd msdocs-python-django-webapp-quickstart
 
       - name: Deploy App
         uses: azure/CLI@v1
