@@ -1,0 +1,29 @@
+name: Deploy App Service
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log in with Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Clone Sample App
+        run: |
+          git clone https://github.com/Azure-Samples/msdocs-python-django-webapp-quickstart
+          cd msdocs-python-django-webapp-quickstart
+
+      - name: Deploy App
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.36.0
+          inlineScript: |
+            az webapp up \
+              --name 'tutorial-python-app' \
+              --runtime 'PYTHON:3.9' \
+              --sku B1 \
+              --logs
