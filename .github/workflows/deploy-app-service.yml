@@ -18,9 +18,10 @@ jobs:
           azcliversion: 2.36.0
           inlineScript: |
             git clone https://github.com/Azure-Samples/msdocs-python-django-webapp-quickstart
+
+            cd msdocs-python-django-webapp-quickstart
             
             az webapp up \
-              --name 'tutorial-python-app' \
               --runtime 'PYTHON:3.9' \
               --sku B1 \
               --logs
