@@ -2,6 +2,9 @@ name: Deploy App Service
 
 on:
   workflow_dispatch:
+    inputs:
+      resource_group_name:
+      app_service_name:
 
 jobs:
   deploy:
@@ -24,8 +27,8 @@ jobs:
             cd msdocs-python-django-webapp-quickstart
 
             az webapp up \
-              --name 'tutorial-python-app' \
-              --resource-group 'rg-tutorial-python-app' \
+              --name '${{ github.event.inputs.app_service_name }}' \
+              --resource-group '${{ github.event.inputs.resource_group_name }}' \
               --runtime 'PYTHON:3.9' \
               --sku B1
 
@@ -36,5 +39,5 @@ jobs:
           inlineScript: |
             az webapp log config \
               --web-server-logging filesystem \
-              --name 'tutorial-python-app' \
-              --resource-group 'rg-tutorial-python-app'
+              --name '${{ github.event.inputs.app_service_name }}' \
+              --resource-group '${{ github.event.inputs.resource_group_name }}'
