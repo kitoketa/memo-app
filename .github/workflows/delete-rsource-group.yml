@@ -6,7 +6,7 @@ on:
       resource_group_name:
 
 jobs:
-  deploy:
+  delete-resource-group:
     runs-on: ubuntu-latest
     steps:
       - name: Log in with Azure
