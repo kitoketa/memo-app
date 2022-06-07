@@ -25,5 +25,16 @@ jobs:
 
             az webapp up \
               --name 'tutorial-python-app' \
+              --resource-group 'rg-tutorial-python-app' \
               --runtime 'PYTHON:3.9' \
               --sku B1
+
+      - name: Setup Log
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.36.0
+          inlineScript: |
+            az webapp log config \
+              --web-server-logging filesystem \
+              --name 'tutorial-python-app' \
+              --resource-group 'rg-tutorial-python-app'
