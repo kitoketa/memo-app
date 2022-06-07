@@ -21,8 +21,6 @@ jobs:
 
             cd msdocs-python-django-webapp-quickstart
             
-            az webapp list-runtimes
-            
             az webapp up \
               --name 'tutorial-python-app' \
               --runtime 'PYTHON:3.9' \
